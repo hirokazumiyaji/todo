@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "github.com/hirokazumiyaji/todo/proto";
+
+import "google/protobuf/wrappers.proto";
+
+message Todo {
+  string id = 1;
+  string text = 2;
+  google.protobuf.StringValue donedAt = 3;
+  string createdAt = 4;
+}
+
+message ListTodoRequest {
+}
+
+message ListTodoResponse {
+  repeated Todo todos = 1;
+}
+
+message CreateTodoRequest {
+  string text = 1;
+}
+
+message DoneTodoRequest {
+  string todoId = 1;
+}
+
+service TodoService {
+  rpc listTodo(ListTodoRequest) returns (ListTodoResponse);
+  rpc createTodo(CreateTodoRequest) returns (Todo);
+  rpc doneTodo(DoneTodoRequest) returns (Todo);
+}
